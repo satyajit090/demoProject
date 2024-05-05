@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,7 @@ public class QuestionController {
 	
 	
 	@GetMapping("/allQue")
-	public List<Question> getAllQuestion() {
+	public ResponseEntity<List<Question>> getAllQuestion() {
 		//return "Satyajit";
 		
 		return questionService.getAllQuestion();
@@ -31,33 +33,34 @@ public class QuestionController {
 	}
 	
 	@GetMapping("/category/{category}")
-	public List<Question> getQuestionByCategory(@PathVariable String category){
+	public ResponseEntity<List<Question>> getQuestionByCategory(@PathVariable String category){
 		return questionService.getQuestionByCategory(category);
 		
 	}
 	
 	@PostMapping("/add")
-	public String addQuestion(@RequestBody Question question) {
+	public ResponseEntity<String> addQuestion(@RequestBody Question question) {
 		return questionService.addQuestion(question);
 		
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public String deleteQuestion(@PathVariable Integer id) {
+	public ResponseEntity<String> deleteQuestion(@PathVariable Integer id) {
 		
 		
 		return questionService.deleteQuestion(id);
 		
 	}
 	
+	
 	@PutMapping("/update/{id}")
-	public String updateQuestion(@PathVariable Integer id, @RequestBody Question question) {
+	public ResponseEntity<String> updateQuestion(@PathVariable Integer id, @RequestBody Question question) {
 		
 		
 		
 		return questionService.updateQuestion(id, question);
 		
 		
-	}
+	} 
       
 }
