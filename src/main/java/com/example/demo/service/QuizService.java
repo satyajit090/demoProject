@@ -14,6 +14,7 @@ import com.example.demo.dao.QuizDao;
 import com.example.demo.entity.Question;
 import com.example.demo.entity.QuestionWrapper;
 import com.example.demo.entity.Quiz;
+import com.example.demo.entity.Responses;
 
 @Service
 public class QuizService {
@@ -53,6 +54,25 @@ public class QuizService {
 		
 		return new ResponseEntity<>(questionsForUser,HttpStatus.OK);
 	}
+
+	public ResponseEntity<Integer> calculateQuiz(Integer id, List<Responses> responses) {
+		// TODO Auto-generated method stub
+		
+		Quiz quiz=quizDao.findById(id).get();
+		List<Question> questions=quiz.getQuestions();
+		int right=0;
+		int i=0;
+		
+		for (Responses response : responses) {
+			if(response.getResponse().equals(questions.get(i).getRightAnswer())) {
+				right++;
+			}
+			i++;
+		}
+		return new ResponseEntity<>(right,HttpStatus.OK);
+	}
+
+	
 
 	
 	
